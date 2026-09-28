@@ -1,15 +1,21 @@
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
-import * as random from 'maath/random/dist/maath-random.esm';
 import gsap from 'gsap';
 
 const particleCount = 5000;
 const spherePositions = new Float32Array(particleCount * 3);
-random.inSphere(spherePositions, { radius: 1.5 });
+for (let i = 0; i < particleCount; i++) {
+  const theta = Math.random() * 2 * Math.PI;
+  const phi = Math.acos((Math.random() * 2) - 1);
+  const r = 1.5 * Math.cbrt(Math.random());
+  spherePositions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+  spherePositions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+  spherePositions[i * 3 + 2] = r * Math.cos(phi);
+}
 
 function ParticleMap() {
-  const ref = useRef<any>();
+  const ref = useRef<any>(null);
 
   useFrame((state, delta) => {
     if (ref.current) {

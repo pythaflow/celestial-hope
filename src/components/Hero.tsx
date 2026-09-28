@@ -37,7 +37,8 @@ export default function Hero() {
     // Select all the char spans inside the headline
     const chars = headlineRef.current.querySelectorAll('.char');
 
-    // Reset properties
+    // Reset properties and kill any ongoing GSAP animations to prevent overlap
+    gsap.killTweensOf(chars);
     gsap.set(chars, { y: 50, opacity: 0 });
 
     // Animate in
@@ -47,16 +48,6 @@ export default function Hero() {
       duration: 0.8,
       stagger: 0.02,
       ease: 'power4.out',
-    });
-
-    // Animate out before the next slide
-    gsap.to(chars, {
-      y: -50,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.01,
-      ease: 'power3.in',
-      delay: 4.2 // Out animation starts at 4.2s
     });
 
   }, [currentSlide]);

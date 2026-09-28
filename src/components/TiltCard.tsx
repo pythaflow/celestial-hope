@@ -1,4 +1,5 @@
-import { useRef, ReactNode, forwardRef } from 'react';
+import { useRef, forwardRef } from 'react';
+import type { ReactNode } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 interface TiltCardProps {
